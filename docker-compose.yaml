@@ -1,0 +1,8 @@
+﻿services:
+  app:
+    image: toy-robot
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_REPO: ${DOCKER_REPO}
