@@ -1,0 +1,12 @@
+# Build Output
+**/bin/
+**/obj/
+
+# Environment
+.env
+
+# IDE
+.idea/
+.vs/
+*.user
+*.suo
