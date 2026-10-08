@@ -6,3 +6,9 @@
       dockerfile: Dockerfile
       args:
         DOCKER_REPO: ${DOCKER_REPO}
+        
+  dotnet:
+    image: ${DOCKER_REPO}/dotnet/sdk:10.0
+    working_dir: /workspace
+    volumes:
+      - .:/workspace

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToyRobot.Cli", "src\ToyRobot.Cli\ToyRobot.Cli.csproj", "{7A3F00D4-A626-4F1D-889A-590606CE2DE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToyRobot.Tests", "tests\ToyRobot.Tests\ToyRobot.Tests.csproj", "{CA873654-3B48-48F5-95FF-4BA293A19A7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{7A3F00D4-A626-4F1D-889A-590606CE2DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A3F00D4-A626-4F1D-889A-590606CE2DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A3F00D4-A626-4F1D-889A-590606CE2DE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA873654-3B48-48F5-95FF-4BA293A19A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA873654-3B48-48F5-95FF-4BA293A19A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA873654-3B48-48F5-95FF-4BA293A19A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA873654-3B48-48F5-95FF-4BA293A19A7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
