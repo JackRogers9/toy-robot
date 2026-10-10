@@ -6,6 +6,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 COPY ["src/ToyRobot.Cli/ToyRobot.Cli.csproj", "src/ToyRobot.Cli/"]
+COPY ["src/ToyRobot.Application/ToyRobot.Application.csproj", "src/ToyRobot.Application/"]
+COPY ["src/ToyRobot.Domain/ToyRobot.Domain.csproj", "src/ToyRobot.Domain/"]
 
 RUN dotnet restore "src/ToyRobot.Cli/ToyRobot.Cli.csproj"
 
