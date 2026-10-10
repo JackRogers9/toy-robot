@@ -114,4 +114,15 @@ public class CommandParserTests
 
         Assert.Null(result);
     }
+    
+    [Theory]
+    [InlineData("EXIT")]
+    [InlineData("exit")]
+    [InlineData("  Exit  ")]
+    public void Parse_Exit_ReturnsExitCommand(string input)
+    {
+        var result = _parser.Parse(input);
+
+        Assert.IsType<ExitCommand>(result);
+    }
 }

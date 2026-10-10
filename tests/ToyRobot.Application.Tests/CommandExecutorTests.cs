@@ -1,6 +1,7 @@
 using ToyRobot.Application.Commands;
 using ToyRobot.Application.Handlers;
 using ToyRobot.Application.Interfaces;
+using ToyRobot.Application.Tests.Helpers;
 using ToyRobot.Domain;
 
 namespace ToyRobot.Application.Tests;

@@ -34,6 +34,7 @@ public class CommandParser : ICommandParser
             _ when keyword.Equals("LEFT", StringComparison.OrdinalIgnoreCase) => new LeftCommand(),
             _ when keyword.Equals("RIGHT", StringComparison.OrdinalIgnoreCase) => new RightCommand(),
             _ when keyword.Equals("REPORT", StringComparison.OrdinalIgnoreCase) => new ReportCommand(),
+            _ when keyword.Equals("EXIT", StringComparison.OrdinalIgnoreCase) => new ExitCommand(),
             _ => null
         };
     }

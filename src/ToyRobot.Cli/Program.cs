@@ -5,22 +5,18 @@ using ToyRobot.Cli;
 using ToyRobot.Cli.Configuration;
 using ToyRobot.Domain;
 
+using var cancellationHandler = new ConsoleCancellationHandler();
+
 var output = new ConsoleRobotOutput();
+var input = new ConsoleRobotInput(cancellationHandler.Token);
 
 var appConfig = new ConfigurationBuilder().LoadAppConfig(output);
 
-var table = new Table(appConfig.Table.Width, appConfig.Table.Height);
-var robot = new Robot(table);
-ICommandParser parser = new CommandParser();
+var robot = new Robot(new Table(appConfig.Table.Width, appConfig.Table.Height));
 var executor = new CommandExecutor(robot, output);
 
-output.Write("Toy Robot! Enter commands: PLACE X,Y,DIRECTION | MOVE | LEFT | RIGHT | REPORT");
+ICommandParser parser = new CommandParser();
 
-while (Console.ReadLine() is { } input)
-{
-    var command = parser.Parse(input);
-    if (command is not null)
-    {
-        executor.Execute(command);
-    }
-}
+new RobotConsole(input, output, parser, executor).Run();
+
+return 0;

@@ -1,6 +1,6 @@
 using ToyRobot.Application.Interfaces;
 
-namespace ToyRobot.Application.Tests;
+namespace ToyRobot.Application.Tests.Helpers;
 
 public class FakeRobotOutput : IRobotOutput
 {
