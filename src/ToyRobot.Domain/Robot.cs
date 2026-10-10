@@ -7,7 +7,7 @@ public class Robot(Table table)
     
     public bool HasPosition => Position != null;
 
-    public bool TrySetPosition(Position position, Direction direction)
+    public bool TryPlace(Position position, Direction direction)
     {
         if (!table.IsWithinBounds(position))
         {

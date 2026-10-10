@@ -10,7 +10,7 @@ public class RobotTests
     [InlineData(4, 4, Direction.East)]
     [InlineData(2, 3, Direction.South)]
     [InlineData(0, 1, Direction.West)]
-    public void TrySetPosition_WithValidPosition_Succeeds(
+    public void TryPlace_WithValidPosition_Succeeds(
         int x,
         int y,
         Direction direction
@@ -18,7 +18,7 @@ public class RobotTests
     {
         var position = new Position(x, y);
         
-        var result = _robot.TrySetPosition(position, direction);
+        var result = _robot.TryPlace(position, direction);
         
         Assert.True(result);
         Assert.True(_robot.HasPosition);
@@ -31,11 +31,11 @@ public class RobotTests
     [InlineData(0, -1)]
     [InlineData(5, 0)]
     [InlineData(0, 5)]
-    public void TrySetPosition_WithInvalidPosition_Fails(int x, int y)
+    public void TryPlace_WithInvalidPosition_Fails(int x, int y)
     {
         var position = new Position(x, y);
         
-        var result = _robot.TrySetPosition(position, Direction.South);
+        var result = _robot.TryPlace(position, Direction.South);
         
         Assert.False(result);
         Assert.False(_robot.HasPosition);
@@ -44,12 +44,12 @@ public class RobotTests
     }
     
     [Fact]
-    public void TrySetPosition_WithValidPosition_ReplacesExistingPosition()
+    public void TryPlace_WithValidPosition_ReplacesExistingPosition()
     {
-        _robot.TrySetPosition(new Position(1, 1), Direction.North);
+        _robot.TryPlace(new Position(1, 1), Direction.North);
         
         var position = new Position(3, 3);
-        var updated =  _robot.TrySetPosition(position, Direction.South);
+        var updated =  _robot.TryPlace(position, Direction.South);
         
         Assert.True(updated);
         Assert.True(_robot.HasPosition);
@@ -76,7 +76,7 @@ public class RobotTests
         int expectedY
     )
     {
-        _robot.TrySetPosition(new Position(2, 2), direction);
+        _robot.TryPlace(new Position(2, 2), direction);
 
         var result = _robot.TryMove();
 
@@ -93,7 +93,7 @@ public class RobotTests
     public void TryMove_OutOfBounds_DoesNotMove(int x, int y, Direction direction)
     {
         var position = new Position(x, y);
-        _robot.TrySetPosition(position, direction);
+        _robot.TryPlace(position, direction);
 
         var result = _robot.TryMove();
 
@@ -121,7 +121,7 @@ public class RobotTests
     public void TryTurnLeft_WhenPlaced_RotatesNinetyDegrees(Direction facing, Direction expected)
     {
         var position = new Position(2, 2);
-        _robot.TrySetPosition(position, facing);
+        _robot.TryPlace(position, facing);
 
         var result = _robot.TryTurnLeft();
 
@@ -138,7 +138,7 @@ public class RobotTests
     public void TryTurnRight_WhenPlaced_RotatesNinetyDegrees(Direction facing, Direction expected)
     {
         var position = new Position(2, 2);
-        _robot.TrySetPosition(position, facing);
+        _robot.TryPlace(position, facing);
 
         var result = _robot.TryTurnRight();
 
