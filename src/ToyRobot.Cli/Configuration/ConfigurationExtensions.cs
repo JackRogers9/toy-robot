@@ -12,6 +12,7 @@ public static class ConfigurationExtensions
         var configuration = builder
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+            .AddEnvironmentVariables()
             .Build();
 
         var appConfig = configuration.Get<AppConfig>() ?? new AppConfig();

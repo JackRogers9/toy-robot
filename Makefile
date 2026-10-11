@@ -13,8 +13,12 @@ build:
 	$(DOTNET) build
 
 .PHONY:
-test:
-	$(DOTNET) test
+unit_test:
+	$(DOTNET) test --filter "Category!=Integration"
+
+.PHONY:
+integration_test:
+	docker compose run --rm dotnet ./integration_test.sh
 
 .PHONY:
 run:
