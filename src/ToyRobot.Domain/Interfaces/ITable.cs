@@ -1,4 +1,4 @@
-namespace ToyRobot.Domain;
+namespace ToyRobot.Domain.Interfaces;
 
 /// <summary>
 /// A table the robot moves on, of any shape. The only question the robot asks

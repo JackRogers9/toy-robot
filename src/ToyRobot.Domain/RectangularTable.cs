@@ -1,3 +1,5 @@
+using ToyRobot.Domain.Interfaces;
+
 namespace ToyRobot.Domain;
 
 /// <summary>

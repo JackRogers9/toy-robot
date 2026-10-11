@@ -1,5 +1,6 @@
 using ToyRobot.Application.Interfaces;
 using ToyRobot.Domain;
+using ToyRobot.Domain.Interfaces;
 
 namespace ToyRobot.Cli.Configuration;
 

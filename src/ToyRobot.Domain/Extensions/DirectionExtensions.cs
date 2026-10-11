@@ -1,4 +1,4 @@
-namespace ToyRobot.Domain;
+namespace ToyRobot.Domain.Extensions;
 
 public static class DirectionExtensions
 {

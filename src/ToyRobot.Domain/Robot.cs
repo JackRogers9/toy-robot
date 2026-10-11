@@ -1,3 +1,6 @@
+using ToyRobot.Domain.Extensions;
+using ToyRobot.Domain.Interfaces;
+
 namespace ToyRobot.Domain;
 
 public class Robot(ITable table)
