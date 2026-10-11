@@ -7,4 +7,6 @@ public class PlaceCommand(Position position, Direction direction) : IRobotComman
 {
     public Position Position { get; } = position;
     public Direction Direction { get; } = direction;
+
+    public void Execute(RobotContext context) => context.Robot.TryPlace(Position, Direction);
 }

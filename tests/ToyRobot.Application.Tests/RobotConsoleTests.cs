@@ -47,11 +47,10 @@ public class RobotConsoleTests
     }
 
     [Fact]
-    public void Run_StopsOnExitCommand()
+    public void Run_StopsAtEndOfInput_AndSaysGoodbye()
     {
-        BuildConsole("PLACE 1,1,NORTH", "EXIT", "REPORT").Run();
-        
-        Assert.DoesNotContain("1,1,NORTH", _output.Messages);
+        BuildConsole("PLACE 1,1,NORTH", "REPORT").Run();
+
         Assert.Equal("Goodbye!", _output.Messages[^1]);
     }
 

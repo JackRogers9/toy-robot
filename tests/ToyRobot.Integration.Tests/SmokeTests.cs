@@ -10,7 +10,7 @@ public class SmokeTests(ITestOutputHelper output) : IntegrationTestBase(output)
     [Fact]
     public async Task Cli_StartsAndPrintsOpeningMessage()
     {
-        var result = await RunAsync("EXIT");
+        var result = await RunAsync();
 
         Assert.Contains("Toy Robot!", result.StandardOutput);
     }
@@ -18,7 +18,7 @@ public class SmokeTests(ITestOutputHelper output) : IntegrationTestBase(output)
     [Fact]
     public async Task Cli_ExitsCleanlyWithGoodbye()
     {
-        var result = await RunAsync("EXIT");
+        var result = await RunAsync();
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("Goodbye!", result.StandardOutput);

@@ -1,4 +1,3 @@
-using ToyRobot.Application.Commands;
 using ToyRobot.Application.Interfaces;
 
 namespace ToyRobot.Application.Handlers;
@@ -11,7 +10,7 @@ public class RobotConsole(
 )
 {
     private const string OpeningMessage =
-        "Toy Robot! Enter commands: PLACE X,Y,DIRECTION | MOVE | LEFT | RIGHT | REPORT (EXIT to quit)";
+        "Toy Robot! Enter commands: PLACE X,Y,DIRECTION | MOVE | LEFT | RIGHT | REPORT";
 
     public void Run()
     {
@@ -20,11 +19,6 @@ public class RobotConsole(
         while (input.ReadLine() is { } line)
         {
             var command = parser.Parse(line);
-
-            if (command is ExitCommand)
-            {
-                break;
-            }
 
             if (command is not null)
             {

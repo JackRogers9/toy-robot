@@ -19,7 +19,7 @@ public class ConfigurationScenarioTests(ITestOutputHelper output) : IntegrationT
             Height = 7
         };
 
-        var reports = await GetReportsAsync(table, "PLACE 5,5,NORTH", "MOVE", "REPORT", "EXIT");
+        var reports = await GetReportsAsync(table, "PLACE 5,5,NORTH", "MOVE", "REPORT");
 
         Assert.Equal("5,6,NORTH", Assert.Single(reports));
     }
@@ -34,7 +34,7 @@ public class ConfigurationScenarioTests(ITestOutputHelper output) : IntegrationT
             Height = 3
         };
 
-        var reports = await GetReportsAsync(table, "PLACE 4,4,NORTH", "REPORT", "EXIT");
+        var reports = await GetReportsAsync(table, "PLACE 4,4,NORTH", "REPORT");
 
         Assert.Empty(reports);
     }
@@ -49,7 +49,7 @@ public class ConfigurationScenarioTests(ITestOutputHelper output) : IntegrationT
             Height = 3
         };
 
-        var reports = await GetReportsAsync(table, "PLACE 2,2,NORTH", "MOVE", "REPORT", "EXIT");
+        var reports = await GetReportsAsync(table, "PLACE 2,2,NORTH", "MOVE", "REPORT");
 
         Assert.Equal("2,2,NORTH", Assert.Single(reports));
     }
@@ -58,7 +58,7 @@ public class ConfigurationScenarioTests(ITestOutputHelper output) : IntegrationT
     public async Task DefaultBoard_StillRejectsPositionsOffTheFiveByFive()
     {
         // No override: the baked-in appsettings 5x5 applies, so (6,6) is invalid.
-        var reports = await GetReportsAsync("PLACE 6,6,NORTH", "REPORT", "EXIT");
+        var reports = await GetReportsAsync("PLACE 6,6,NORTH", "REPORT");
 
         Assert.Empty(reports);
     }

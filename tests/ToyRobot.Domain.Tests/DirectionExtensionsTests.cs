@@ -1,3 +1,5 @@
+using ToyRobot.Domain.Extensions;
+
 namespace ToyRobot.Domain.Tests;
 
 public class DirectionExtensionsTests
