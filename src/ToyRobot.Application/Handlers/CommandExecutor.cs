@@ -4,7 +4,7 @@ using ToyRobot.Domain;
 
 namespace ToyRobot.Application.Handlers;
 
-public class CommandExecutor(Robot robot, IRobotOutput output)
+public class CommandExecutor(Robot robot, IRobotOutput output) : ICommandExecutor
 {
     public void Execute(IRobotCommand command)
     {

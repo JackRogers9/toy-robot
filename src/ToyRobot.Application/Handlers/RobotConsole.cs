@@ -7,7 +7,7 @@ public class RobotConsole(
     IRobotInput input,
     IRobotOutput output,
     ICommandParser parser,
-    CommandExecutor executor
+    ICommandExecutor executor
 )
 {
     private const string OpeningMessage =
