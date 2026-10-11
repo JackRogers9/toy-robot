@@ -1,6 +1,6 @@
 namespace ToyRobot.Domain;
 
-public class Robot(Table table)
+public class Robot(ITable table)
 {
     public Position? Position { get; private set; }
     public Direction? Direction { get; private set; }
@@ -9,7 +9,7 @@ public class Robot(Table table)
 
     public bool TryPlace(Position position, Direction direction)
     {
-        if (!table.IsWithinBounds(position))
+        if (!table.CanOccupy(position))
         {
             return false;
         }
@@ -28,7 +28,7 @@ public class Robot(Table table)
 
         var nextPosition = Direction!.Value.NextPosition(Position!);
 
-        if (!table.IsWithinBounds(nextPosition))
+        if (!table.CanOccupy(nextPosition))
         {
             return false;
         }

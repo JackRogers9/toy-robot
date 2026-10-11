@@ -2,7 +2,7 @@ namespace ToyRobot.Domain.Tests;
 
 public class RobotTests
 {
-    private static readonly Table Table = new(5, 5);
+    private static readonly RectangularTable Table = new(5, 5);
     private readonly Robot _robot = new(Table);
 
     [Theory]

@@ -12,7 +12,7 @@ var input = new ConsoleRobotInput(cancellationHandler.Token);
 
 var appConfig = new ConfigurationBuilder().LoadAppConfig(output);
 
-var robot = new Robot(new Table(appConfig.Table.Width, appConfig.Table.Height));
+var robot = new Robot(TableFactory.Create(appConfig.Table, output));
 var executor = new CommandExecutor(robot, output);
 
 ICommandParser parser = new CommandParser();

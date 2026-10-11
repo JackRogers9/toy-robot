@@ -10,7 +10,7 @@ public class RobotConsoleTests
 
     private RobotConsole BuildConsole(params string[] lines)
     {
-        var robot = new Robot(new Table(5, 5));
+        var robot = new Robot(new RectangularTable(5, 5));
         var executor = new CommandExecutor(robot, _output);
         
         return new RobotConsole(

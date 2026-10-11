@@ -8,7 +8,7 @@ namespace ToyRobot.Application.Tests;
 
 public class CommandExecutorTests
 {
-    private readonly Robot _robot = new(new Table(5, 5));
+    private readonly Robot _robot = new(new RectangularTable(5, 5));
     private readonly FakeRobotOutput _output = new();
     private readonly CommandExecutor _executor;
 
