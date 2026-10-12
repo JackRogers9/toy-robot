@@ -1,0 +1,15 @@
+# Normalise line endings so a Windows checkout does not corrupt bash scripts.
+* text=auto
+
+# Shell scripts and the Makefile must stay LF — CRLF breaks bash execution.
+*.sh text eol=lf
+Makefile text eol=lf
+makefile text eol=lf
+
+# Keep sources and config as LF for consistency across platforms.
+*.cs text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+Dockerfile text eol=lf
