@@ -22,6 +22,8 @@ public static class DirectionExtensions
             _ => direction
         };
 
+        // Origin (0,0) is the south-west corner, so North increases Y and East
+        // increases X (South/West decrease them).
         public Position NextPosition(Position position) => direction switch
         {
             Direction.North => position with { Y = position.Y + 1 },

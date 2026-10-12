@@ -6,11 +6,8 @@ public class ConsoleRobotInput(CancellationToken cancellationToken) : IRobotInpu
 {
     public string? ReadLine()
     {
-        if (cancellationToken.IsCancellationRequested)
-        {
-            return null;
-        }
-
+        // Console.ReadLine blocks and cannot be cancelled, so run it on a
+        // background task and wait on either the read or cancellation.
         var readTask = Task.Run(Console.ReadLine);
 
         try
@@ -19,7 +16,8 @@ public class ConsoleRobotInput(CancellationToken cancellationToken) : IRobotInpu
         }
         catch (OperationCanceledException)
         {
-            // Ctrl-C pressed
+            // Ctrl-C: signal end of input. The read task is still blocked but is
+            // deliberately abandoned — the process is exiting, so leaking it is fine.
             return null;
         }
 

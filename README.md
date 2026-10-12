@@ -66,4 +66,9 @@ See `test-data/` for more inputs and expected outputs.
 
 Table size and shape come from `src/ToyRobot.Cli/appsettings.json` (default: 5x5
 rectangular) and can be overridden with env vars — `Table__Width`,
-`Table__Height`, `Table__Shape`.
+`Table__Height`, `Table__Shape`. Invalid values warn and fall back to the
+defaults rather than failing.
+
+`appsettings.json` is copied to the build output as `PreserveNewest`, so after
+editing it rebuild (or `dotnet run`) to refresh the copy the binary reads;
+running a stale build can otherwise pick up old config.

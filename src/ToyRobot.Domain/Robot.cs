@@ -3,6 +3,12 @@ using ToyRobot.Domain.Interfaces;
 
 namespace ToyRobot.Domain;
 
+/// <summary>
+/// The toy robot. Each operation returns a bool and leaves state unchanged when
+/// it cannot be applied (off-table move/placement, or acting before placement)
+/// rather than throwing — so the caller can ignore invalid commands and keep
+/// processing the rest.
+/// </summary>
 public class Robot(ITable table)
 {
     public Position? Position { get; private set; }

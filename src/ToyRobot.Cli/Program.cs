@@ -9,7 +9,7 @@ using var cancellationHandler = new ConsoleCancellationHandler();
 var output = new ConsoleRobotOutput();
 var input = new ConsoleRobotInput(cancellationHandler.Token);
 
-var appConfig = new ConfigurationBuilder().LoadAppConfig(output);
+var appConfig = new ConfigurationBuilder().LoadAppConfig();
 
 var table = TableFactory.Create(appConfig.Table, output);
 var robot = new Robot(table);
