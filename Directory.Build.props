@@ -1,0 +1,22 @@
+<Project>
+
+  <!--
+    When ARTIFACTS_PATH is set (only inside the docker compose `dotnet`
+    service), send all build output to one directory OUTSIDE the bind-mounted
+    source tree, using the SDK's built-in artifacts-output layout. A single
+    anonymous volume at that path then keeps container-generated output off the
+    host, so the IDE's restore state is never overwritten with /workspace paths.
+
+    UseArtifactsOutput is the supported .NET mechanism for a shared output
+    directory; it relocates obj/bin cleanly (handling the compile-item
+    exclusions that hand-rolled path redirects get wrong).
+
+    When ARTIFACTS_PATH is unset (local IDE builds, CI), this does nothing and
+    projects build to their normal ./obj and ./bin.
+  -->
+  <PropertyGroup Condition="'$(ARTIFACTS_PATH)' != ''">
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(ARTIFACTS_PATH)</ArtifactsPath>
+  </PropertyGroup>
+
+</Project>

@@ -10,5 +10,12 @@
   dotnet:
     image: ${DOCKER_REPO}/dotnet/sdk:10.0
     working_dir: /workspace
+    environment:
+      # Directory.Build.props redirects all build output here, off the
+      # host-mounted tree. The single /artifacts volume below keeps those
+      # container-generated obj/bin from overwriting the host's (and the IDE's
+      # restore state) with /workspace paths. No per-project lines needed.
+      ARTIFACTS_PATH: /artifacts
     volumes:
       - .:/workspace
+      - /artifacts
