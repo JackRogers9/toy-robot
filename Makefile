@@ -13,16 +13,16 @@ build:
 	$(DOTNET) build
 
 .PHONY:
+run:
+	$(DOTNET) run --project src/ToyRobot.Cli
+
+.PHONY:
 unit_test:
 	$(DOTNET) test --filter "Category!=Integration"
 
 .PHONY:
 integration_test:
-	docker compose run --rm dotnet ./integration_test.sh
-
-.PHONY:
-run:
-	$(DOTNET) run --project src/ToyRobot.Cli
+	docker compose run --rm dotnet ./scripts/integration_test.sh
 
 .PHONY:
 image:
