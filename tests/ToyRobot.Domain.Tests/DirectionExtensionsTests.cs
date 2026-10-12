@@ -63,4 +63,20 @@ public class DirectionExtensionsTests
 
         Assert.Equal(facing, result);
     }
+
+    [Theory]
+    [InlineData(Direction.North, 2, 3)]
+    [InlineData(Direction.East, 3, 2)]
+    [InlineData(Direction.South, 2, 1)]
+    [InlineData(Direction.West, 1, 2)]
+    public void NextPosition_StepsOneUnitInTheFacingDirection(
+        Direction facing,
+        int expectedX,
+        int expectedY
+    )
+    {
+        var result = facing.NextPosition(new Position(2, 2));
+
+        Assert.Equal(new Position(expectedX, expectedY), result);
+    }
 }

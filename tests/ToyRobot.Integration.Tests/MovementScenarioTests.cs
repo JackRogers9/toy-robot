@@ -27,7 +27,13 @@ public class MovementScenarioTests(ITestOutputHelper output) : IntegrationTestBa
     public async Task CombinedSequence_ProducesExpectedFinalPosition()
     {
         var reports = await GetReportsAsync(
-            "PLACE 1,2,EAST", "MOVE", "MOVE", "LEFT", "MOVE", "REPORT");
+            "PLACE 1,2,EAST",
+            "MOVE",
+            "MOVE",
+            "LEFT",
+            "MOVE",
+            "REPORT"
+        );
 
         Assert.Equal("3,3,NORTH", Assert.Single(reports));
     }
@@ -36,7 +42,12 @@ public class MovementScenarioTests(ITestOutputHelper output) : IntegrationTestBa
     public async Task CommandsBeforePlace_AreIgnored()
     {
         var reports = await GetReportsAsync(
-            "MOVE", "LEFT", "REPORT", "PLACE 2,2,SOUTH", "REPORT");
+            "MOVE",
+            "LEFT",
+            "REPORT",
+            "PLACE 2,2,SOUTH",
+            "REPORT"
+        );
 
         // The REPORT before PLACE must produce nothing; only the post-place one does.
         Assert.Equal("2,2,SOUTH", Assert.Single(reports));
@@ -54,8 +65,7 @@ public class MovementScenarioTests(ITestOutputHelper output) : IntegrationTestBa
     [Fact]
     public async Task InvalidInput_IsIgnored()
     {
-        var reports = await GetReportsAsync(
-            "GARBAGE", "PLACE 1,1,EAST", "MOVE EXTRA", "REPORT");
+        var reports = await GetReportsAsync("GARBAGE", "PLACE 1,1,EAST", "MOVE EXTRA", "REPORT");
 
         // GARBAGE and the bare command with trailing args are ignored;
         // the robot stays where PLACE put it.

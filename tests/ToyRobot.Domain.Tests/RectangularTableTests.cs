@@ -33,4 +33,20 @@ public class RectangularTableTests
 
         Assert.False(result);
     }
+
+    [Theory]
+    // Width 3 (x: 0..2), Height 5 (y: 0..4) — asymmetric to catch axis transposition.
+    [InlineData(2, 4, true)]   // top-right corner, valid
+    [InlineData(0, 4, true)]   // tallest valid y
+    [InlineData(3, 0, false)]  // x past width
+    [InlineData(0, 5, false)]  // y past height
+    [InlineData(2, 5, false)]  // valid x, invalid y
+    public void CanOccupy_RespectsSeparateWidthAndHeight(int x, int y, bool expected)
+    {
+        var table = new RectangularTable(width: 3, height: 5);
+
+        var result = table.CanOccupy(new Position(x, y));
+
+        Assert.Equal(expected, result);
+    }
 }
