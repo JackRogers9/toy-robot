@@ -56,8 +56,7 @@ dotnet test                                   # everything
 
 ## Running the CLI
 
-Reads commands from stdin — type them, or pipe a file. Quit with `Ctrl-C` or
-end-of-input (`Ctrl-D`).
+Reads commands from stdin — type them, or pipe a file. Quit with `Ctrl-C`.
 
 ```bash
 # local (dotnet)
