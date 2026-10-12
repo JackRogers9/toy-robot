@@ -38,9 +38,9 @@ make unit_test            # Domain + Application
 make integration_test     # end-to-end against the built CLI
 
 # local (dotnet)
-dotnet test --filter "Category!=Integration"   # unit
-dotnet test --filter "Category=Integration"    # integration
-dotnet test                                     # everything
+dotnet test --filter "Category!=Integration"  # unit
+dotnet test --filter "Category=Integration"   # integration
+dotnet test                                   # everything
 ```
 
 ## Running the CLI
@@ -50,13 +50,13 @@ end-of-input (`Ctrl-D`).
 
 ```bash
 # local (dotnet)
-dotnet run --project src/ToyRobot.Cli                              # interactive
-dotnet run --project src/ToyRobot.Cli < test-data/example-a.txt    # piped
+dotnet run --project src/ToyRobot.Cli                             # interactive
+dotnet run --project src/ToyRobot.Cli < test-data/example-a.txt   # piped
 
 # make (Docker)
-make run          # interactive, in the dotnet SDK container
-make image        # build the application image
-make run-image    # run that image
+make run         # interactive, in the dotnet SDK container
+make image       # build the application image
+make run-image   # run that image
 ```
 
 Example: `PLACE 1,2,EAST / MOVE / MOVE / LEFT / MOVE / REPORT` → `3,3,NORTH`.
