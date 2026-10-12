@@ -19,8 +19,15 @@ Run everything either **locally** or **through `make`/Docker** — pick one.
 - **Local:** .NET SDK 10.0 (targets `net10.0`, developed against `10.0.400`).
 - **Docker/make:** Docker (with `docker compose`), `make`, and `bash` (the
   Makefile and `integration_test.sh` are bash). No local SDK needed — it runs in
-  the `dotnet` compose service. Requires a repo-root `.env` defining
-  `DOCKER_REPO` (already present).
+  the `dotnet` compose service.
+
+  Before running anything through Docker, create a repo-root `.env` — Docker
+  Compose reads `DOCKER_REPO` from it to resolve the base image and build args,
+  and the commands fail without it:
+
+  ```bash
+  cp .env.example .env   # then set DOCKER_REPO=iress.jfrog.io/iress-docker
+  ```
 
 > **Windows:** the application and tests are fully cross-platform via the local
 > `dotnet` path below. The `make` path needs bash, so run it under WSL or Git
