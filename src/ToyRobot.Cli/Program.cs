@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using ToyRobot.Application.Handlers;
-using ToyRobot.Application.Interfaces;
 using ToyRobot.Cli;
 using ToyRobot.Cli.Configuration;
 using ToyRobot.Domain;
@@ -12,10 +11,12 @@ var input = new ConsoleRobotInput(cancellationHandler.Token);
 
 var appConfig = new ConfigurationBuilder().LoadAppConfig(output);
 
-var robot = new Robot(TableFactory.Create(appConfig.Table, output));
+var table = TableFactory.Create(appConfig.Table, output);
+var robot = new Robot(table);
+
 var executor = new CommandExecutor(robot, output);
 
-ICommandParser parser = new CommandParser();
+var parser = new CommandParser();
 
 new RobotConsole(input, output, parser, executor).Run();
 

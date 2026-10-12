@@ -31,6 +31,7 @@ public static class ConfigurationExtensions
         {
             Table = new TableOptions
             {
+                Shape = appConfig.Table.Shape,
                 Width = DefaultTableSize, 
                 Height = DefaultTableSize
             }
