@@ -48,4 +48,35 @@ public class TableFactoryTests
         var warning = Assert.Single(_output.Messages);
         Assert.Contains("Hexagonal", warning);
     }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(-1, 5)]
+    [InlineData(5, 0)]
+    public void Create_InvalidSize_FallsBackToDefaultAndWarns(int width, int height)
+    {
+        var options = new TableOptions { Shape = "Rectangular", Width = width, Height = height };
+
+        var table = TableFactory.Create(options, _output);
+
+        // Fell back to the default 5x5.
+        Assert.True(table.CanOccupy(new Position(4, 4)));
+        Assert.False(table.CanOccupy(new Position(5, 5)));
+
+        var warning = Assert.Single(_output.Messages);
+        Assert.Contains("invalid table size", warning);
+    }
+
+    [Fact]
+    public void Create_InvalidSizeAndUnknownShape_WarnsForBoth()
+    {
+        var options = new TableOptions { Shape = "R", Width = 0, Height = 0 };
+
+        var table = TableFactory.Create(options, _output);
+
+        Assert.True(table.CanOccupy(new Position(4, 4)));   // default 5x5
+        Assert.Equal(2, _output.Messages.Count);
+        Assert.Contains(_output.Messages, m => m.Contains("invalid table size"));
+        Assert.Contains(_output.Messages, m => m.Contains("'R'"));
+    }
 }
