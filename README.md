@@ -61,7 +61,7 @@ dotnet run --project src/ToyRobot.Cli < test-data/example-a.txt   # piped
 # make (Docker)
 make run         # interactive, in the dotnet SDK container
 make image       # build the application image
-make run-image   # run that image
+make run_image   # run that image
 ```
 
 Example: `PLACE 1,2,EAST / MOVE / MOVE / LEFT / MOVE / REPORT` → `3,3,NORTH`.

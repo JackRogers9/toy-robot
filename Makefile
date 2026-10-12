@@ -29,5 +29,5 @@ image:
 	docker compose build app
 
 .PHONY:
-run-image:
+run_image:
 	docker compose run --rm app

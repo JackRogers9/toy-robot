@@ -30,7 +30,7 @@ tests.
 - Assumes the CLI is built (the project reference puts the DLL beside the test
   output).
 - Tests the composed application, not the Docker image — the image is still
-  exercised by `make image` / `make run-image`.
+  exercised by `make image` / `make run_image`.
 
 ## Alternatives considered
 

@@ -1,68 +1,61 @@
+using ToyRobot.Domain.Tests.Helpers;
+
 namespace ToyRobot.Domain.Tests;
 
 public class RobotTests
 {
-    private static readonly RectangularTable Table = new(5, 5);
-    private readonly Robot _robot = new(Table);
-
     [Theory]
     [InlineData(0, 0, Direction.North)]
     [InlineData(4, 4, Direction.East)]
     [InlineData(2, 3, Direction.South)]
-    [InlineData(0, 1, Direction.West)]
-    public void TryPlace_WithValidPosition_Succeeds(
-        int x,
-        int y,
-        Direction direction
-    )
+    public void TryPlace_WhenTableAllowsPosition_Succeeds(int x, int y, Direction direction)
     {
+        var robot = new Robot(FakeTable.AllowingEverything());
         var position = new Position(x, y);
-        
-        var result = _robot.TryPlace(position, direction);
-        
+
+        var result = robot.TryPlace(position, direction);
+
         Assert.True(result);
-        Assert.True(_robot.HasPosition);
-        Assert.Equal(position, _robot.Position);
-        Assert.Equal(direction, _robot.Direction);
+        Assert.True(robot.HasPosition);
+        Assert.Equal(position, robot.Position);
+        Assert.Equal(direction, robot.Direction);
     }
 
-    [Theory]
-    [InlineData(-1, 0)]
-    [InlineData(0, -1)]
-    [InlineData(5, 0)]
-    [InlineData(0, 5)]
-    public void TryPlace_WithInvalidPosition_Fails(int x, int y)
-    {
-        var position = new Position(x, y);
-        
-        var result = _robot.TryPlace(position, Direction.South);
-        
-        Assert.False(result);
-        Assert.False(_robot.HasPosition);
-        Assert.Null(_robot.Position);
-        Assert.Null(_robot.Direction);
-    }
-    
     [Fact]
-    public void TryPlace_WithValidPosition_ReplacesExistingPosition()
+    public void TryPlace_WhenTableBlocksPosition_Fails()
     {
-        _robot.TryPlace(new Position(1, 1), Direction.North);
-        
-        var position = new Position(3, 3);
-        var updated =  _robot.TryPlace(position, Direction.South);
-        
-        Assert.True(updated);
-        Assert.True(_robot.HasPosition);
-        Assert.Equal(position, _robot.Position);
-        Assert.Equal(Direction.South, _robot.Direction);
+        var robot = new Robot(FakeTable.AllowingNothing());
+
+        var result = robot.TryPlace(new Position(1, 1), Direction.North);
+
+        Assert.False(result);
+        Assert.False(robot.HasPosition);
+        Assert.Null(robot.Position);
+        Assert.Null(robot.Direction);
     }
-    
+
+    [Fact]
+    public void TryPlace_WhenAlreadyPlaced_ReplacesPosition()
+    {
+        var robot = new Robot(FakeTable.AllowingEverything());
+        robot.TryPlace(new Position(1, 1), Direction.North);
+
+        var newPosition = new Position(3, 3);
+        var result = robot.TryPlace(newPosition, Direction.South);
+
+        Assert.True(result);
+        Assert.Equal(newPosition, robot.Position);
+        Assert.Equal(Direction.South, robot.Direction);
+    }
+
     [Fact]
     public void Robot_IsNotPlaced_WhenInitialized()
     {
-        Assert.False(_robot.HasPosition);
-        Assert.Null(_robot.Position);
-        Assert.Null(_robot.Direction);
+        var robot = new Robot(FakeTable.AllowingEverything());
+
+        Assert.False(robot.HasPosition);
+        Assert.Null(robot.Position);
+        Assert.Null(robot.Direction);
     }
 
     [Theory]
@@ -70,47 +63,46 @@ public class RobotTests
     [InlineData(Direction.East, 3, 2)]
     [InlineData(Direction.South, 2, 1)]
     [InlineData(Direction.West, 1, 2)]
-    public void TryMove_WithinBounds_MovesOneSquare(
+    public void TryMove_WhenTargetCellIsAllowed_MovesOneSquare(
         Direction direction,
         int expectedX,
         int expectedY
     )
     {
-        _robot.TryPlace(new Position(2, 2), direction);
+        var robot = new Robot(FakeTable.AllowingEverything());
+        robot.TryPlace(new Position(2, 2), direction);
 
-        var result = _robot.TryMove();
+        var result = robot.TryMove();
 
         Assert.True(result);
-        Assert.Equal(new Position(expectedX, expectedY), _robot.Position);
-        Assert.Equal(direction, _robot.Direction);
+        Assert.Equal(new Position(expectedX, expectedY), robot.Position);
+        Assert.Equal(direction, robot.Direction);
     }
 
-    [Theory]
-    [InlineData(0, 4, Direction.North)]
-    [InlineData(4, 0, Direction.East)]
-    [InlineData(0, 0, Direction.South)]
-    [InlineData(0, 0, Direction.West)]
-    public void TryMove_OutOfBounds_DoesNotMove(int x, int y, Direction direction)
+    [Fact]
+    public void TryMove_WhenTargetCellIsBlocked_DoesNotMove()
     {
-        var position = new Position(x, y);
-        _robot.TryPlace(position, direction);
+        var start = new Position(2, 2);
+        // Only the starting cell is allowed, so any move off it is blocked.
+        var robot = new Robot(FakeTable.Allowing(start));
+        robot.TryPlace(start, Direction.North);
 
-        var result = _robot.TryMove();
+        var result = robot.TryMove();
 
         Assert.False(result);
-        Assert.Equal(position, _robot.Position);
-        Assert.Equal(direction, _robot.Direction);
+        Assert.Equal(start, robot.Position);
+        Assert.Equal(Direction.North, robot.Direction);
     }
 
     [Fact]
     public void TryMove_WhenNotPlaced_Fails()
     {
-        var result = _robot.TryMove();
+        var robot = new Robot(FakeTable.AllowingEverything());
+
+        var result = robot.TryMove();
 
         Assert.False(result);
-        Assert.False(_robot.HasPosition);
-        Assert.Null(_robot.Position);
-        Assert.Null(_robot.Direction);
+        Assert.False(robot.HasPosition);
     }
 
     [Theory]
@@ -120,14 +112,15 @@ public class RobotTests
     [InlineData(Direction.East, Direction.North)]
     public void TryTurnLeft_WhenPlaced_RotatesNinetyDegrees(Direction facing, Direction expected)
     {
+        var robot = new Robot(FakeTable.AllowingEverything());
         var position = new Position(2, 2);
-        _robot.TryPlace(position, facing);
+        robot.TryPlace(position, facing);
 
-        var result = _robot.TryTurnLeft();
+        var result = robot.TryTurnLeft();
 
         Assert.True(result);
-        Assert.Equal(expected, _robot.Direction);
-        Assert.Equal(position, _robot.Position);
+        Assert.Equal(expected, robot.Direction);
+        Assert.Equal(position, robot.Position);
     }
 
     [Theory]
@@ -137,31 +130,36 @@ public class RobotTests
     [InlineData(Direction.West, Direction.North)]
     public void TryTurnRight_WhenPlaced_RotatesNinetyDegrees(Direction facing, Direction expected)
     {
+        var robot = new Robot(FakeTable.AllowingEverything());
         var position = new Position(2, 2);
-        _robot.TryPlace(position, facing);
+        robot.TryPlace(position, facing);
 
-        var result = _robot.TryTurnRight();
+        var result = robot.TryTurnRight();
 
         Assert.True(result);
-        Assert.Equal(expected, _robot.Direction);
-        Assert.Equal(position, _robot.Position);
+        Assert.Equal(expected, robot.Direction);
+        Assert.Equal(position, robot.Position);
     }
 
     [Fact]
     public void TryTurnLeft_WhenNotPlaced_Fails()
     {
-        var result = _robot.TryTurnLeft();
+        var robot = new Robot(FakeTable.AllowingEverything());
+
+        var result = robot.TryTurnLeft();
 
         Assert.False(result);
-        Assert.Null(_robot.Direction);
+        Assert.Null(robot.Direction);
     }
 
     [Fact]
     public void TryTurnRight_WhenNotPlaced_Fails()
     {
-        var result = _robot.TryTurnRight();
+        var robot = new Robot(FakeTable.AllowingEverything());
+
+        var result = robot.TryTurnRight();
 
         Assert.False(result);
-        Assert.Null(_robot.Direction);
+        Assert.Null(robot.Direction);
     }
 }

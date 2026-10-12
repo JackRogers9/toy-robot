@@ -14,7 +14,7 @@ REPL that must exit cleanly (status 0), not with a non-zero signal code.
 
 Every task is a `make` target running inside a Docker Compose service, so the
 only host requirements are Docker and `make`: `unit_test`, `integration_test`,
-`build`, `run`, `image`, `run-image`.
+`build`, `run`, `image`, `run_image`.
 
 The unit/integration split is driven by an xUnit trait filter
 (`Category!=Integration` / `Category=Integration`) against the whole solution, so
