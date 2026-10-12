@@ -22,7 +22,7 @@ unit_test:
 
 .PHONY:
 integration_test:
-	docker compose run --rm dotnet ./scripts/integration_test.sh
+	$(DOTNET) test --filter "Category=Integration"
 
 .PHONY:
 image:
