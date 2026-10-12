@@ -29,9 +29,8 @@ Run everything either **locally** or **through `make`/Docker** — pick one.
   cp .env.example .env   # then set DOCKER_REPO=iress.jfrog.io/iress-docker
   ```
 
-> **Windows:** the application and tests are fully cross-platform via the local
-> `dotnet` path below. The `make` path needs bash, so run it under WSL or Git
-> Bash — or just use the `dotnet` commands directly.
+> **Windows:** the `dotnet` commands run natively. The `make` path needs bash,
+> so use WSL or Git Bash.
 
 ### Artifactory authentication
 
